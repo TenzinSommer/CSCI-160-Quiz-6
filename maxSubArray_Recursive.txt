@@ -1,0 +1,28 @@
+public static List<Integer> maxSubarray(List<Integer> arr, int loc, int subSeq, int subArr) {
+    // Write your code here
+    // subsequence sum is just positives added together, or highest negative
+    // if all are negative
+    // subarray sum doesn't include beginning and ending elements if they are
+    // negative
+    
+    // recursive soln: start at first index, check if positive or negative
+    // if positive, add to subsequence counter and subarray counter. if negative,
+    // don't add to either counter
+    // advance to next index, if it's positive add to both counters, if negative,
+    // skip subsequence counter but add to subarray counter
+    
+    if (arr.get(loc) > 0) {
+        subSeq += arr.get(loc); subArr += arr.get(loc);
+    } else {
+        if (subArr != 0) {
+            subArr += arr.get(loc);
+        }
+    }
+    
+    if (loc == arr.size() - 1) {
+        List<Integer> finList = new ArrayList<Integer>();
+        finList.add(subSeq); finList.add(subArr);
+        return finList;
+    }
+    return maxSubarray(arr, (loc + 1), subSeq, subArr);
+    }
